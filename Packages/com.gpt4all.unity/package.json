@@ -1,0 +1,14 @@
+{
+  "name": "com.gpt4all.unity",
+  "version": "1.0.0",
+  "displayName": "GPT4All",
+  "description": "GPT4All is an ecosystem of open-source chatbots trained on a massive collections of clean assistant data including code, stories and dialogue.\n\nThis is Unity bindings of gpt4all infrence implementation.",
+  "unity": "2020.1",
+  "license": "MIT",
+  "licensesUrl": "https://github.com/Macoron/gpt4all.unity/blob/master/LICENSE.MD",
+  "documentationUrl": "https://github.com/Macoron/gpt4all.unity/blob/master/README.md",
+  "author": {
+    "name": "Macoron",
+    "url": "https://github.com/Macoron"
+  }
+} 
