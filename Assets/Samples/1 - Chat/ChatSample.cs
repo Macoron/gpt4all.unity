@@ -16,12 +16,24 @@ namespace Gpt4All.Samples
 
         private void Awake()
         {
-            input.onSubmit.AddListener(OnSubmit);
+            input.onEndEdit.AddListener(OnSubmit);
             submit.onClick.AddListener(OnSubmitPressed);
             manager.OnResponse += OnResponseHandler;
         }
     
-        private async void OnSubmit(string prompt)
+        private void OnSubmit(string prompt)
+        {
+            if (!Input.GetKey(KeyCode.Return))
+                return;
+            SendToChat(input.text);
+        }
+    
+        private void OnSubmitPressed()
+        {
+            SendToChat(input.text);
+        }
+
+        private async void SendToChat(string prompt)
         {
             if (string.IsNullOrEmpty(prompt))
                 return;
@@ -31,11 +43,6 @@ namespace Gpt4All.Samples
             await manager.Prompt(prompt);
             output.text += "\n";
             ScrollDown();
-        }
-    
-        private void OnSubmitPressed()
-        {
-            OnSubmit(input.text);
         }
     
         private void OnResponseHandler(int tokenId, string response)
