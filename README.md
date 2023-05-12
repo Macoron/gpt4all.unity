@@ -20,7 +20,7 @@ This is Unity3d bindings for the [gpt4all](https://github.com/nomic-ai/gpt4all).
 
 ## Samples
 
-https://github.com/Macoron/gpt4all.unity/assets/6161335/b69d4e5c-64ec-4969-a2b9-723a4ac7ee0e
+https://github.com/Macoron/gpt4all.unity/assets/6161335/1c0540d0-a169-4d88-8661-35ec0681ff5b
 
 *"mpt-7b-chat" model, roleplaying dwarf NPC on Macbook with M1 Pro*
 
