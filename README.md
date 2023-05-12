@@ -29,7 +29,7 @@ Clone this repository and open it as regular Unity project. It should be working
 
 Alternatively you can add this repository to your existing project as a **Unity Package**. Add it by this git URL to your Unity Package Manager:
 ```
-https://github.com/Macoron/whisper.unity.git?path=/Packages/com.gpt4all.unity
+https://github.com/Macoron/gpt4all.unity.git?path=/Packages/com.gpt4all.unity
 ```
 ### Downloading model weights
 
