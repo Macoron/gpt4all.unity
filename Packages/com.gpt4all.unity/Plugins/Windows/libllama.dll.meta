@@ -26,7 +26,8 @@ PluginImporter:
       Android: Android
     second:
       enabled: 1
-      settings: {}
+      settings:
+        CPU: ARMv7
   - first:
       Any: 
     second:
@@ -37,27 +38,33 @@ PluginImporter:
     second:
       enabled: 1
       settings:
+        CPU: AnyCPU
         DefaultValueInitialized: true
+        OS: AnyOS
   - first:
       Standalone: Linux64
     second:
       enabled: 1
-      settings: {}
+      settings:
+        CPU: AnyCPU
   - first:
       Standalone: OSXUniversal
     second:
       enabled: 1
-      settings: {}
+      settings:
+        CPU: None
   - first:
       Standalone: Win
     second:
       enabled: 1
-      settings: {}
+      settings:
+        CPU: x86
   - first:
       Standalone: Win64
     second:
       enabled: 1
-      settings: {}
+      settings:
+        CPU: x86_64
   userData: 
   assetBundleName: 
   assetBundleVariant: 
