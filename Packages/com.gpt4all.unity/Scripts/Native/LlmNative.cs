@@ -57,6 +57,12 @@ namespace Gpt4All.Native
 
         [DllImport(LibraryName)]
         public static extern void llmodel_gptj_destroy(llmodel_model gptj);
+        
+        [DllImport(LibraryName)]
+        public static extern llmodel_model llmodel_mpt_create();
+
+        [DllImport(LibraryName)]
+        public static extern void llmodel_mpt_destroy(llmodel_model mpt);
     
         [DllImport(LibraryName)]
         public static extern llmodel_model llmodel_llama_create();

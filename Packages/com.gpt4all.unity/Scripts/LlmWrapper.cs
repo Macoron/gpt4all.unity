@@ -21,7 +21,8 @@ namespace Gpt4All
     public enum LlmModelType
     {
         GPTJ,
-        LLAMA
+        LLAMA,
+        MPT
     }
     
     public class LlmWrapper
@@ -61,6 +62,9 @@ namespace Gpt4All
                     break;
                 case LlmModelType.LLAMA:
                     LlmNative.llmodel_llama_destroy(_model);
+                    break;
+                case LlmModelType.MPT:
+                    LlmNative.llmodel_mpt_destroy(_model);
                     break;
             }
             _model = IntPtr.Zero;
@@ -150,17 +154,25 @@ namespace Gpt4All
             }
 
             IntPtr model;
-            if (type == LlmModelType.GPTJ)
+            switch (type)
             {
-                Debug.Log("Trying to init GPT-J model...");
-                model = LlmNative.llmodel_gptj_create();
-                Debug.Log("GPT-J model created!");
-            }
-            else
-            {
-                Debug.Log("Trying to init Llama model...");
-                model = LlmNative.llmodel_llama_create();
-                Debug.Log("Llama model created!");
+                case LlmModelType.GPTJ:
+                    Debug.Log("Trying to init GPT-J model...");
+                    model = LlmNative.llmodel_gptj_create();
+                    Debug.Log("GPT-J model created!");
+                    break;
+                case LlmModelType.MPT:
+                    Debug.Log("Trying to init MPT model...");
+                    model = LlmNative.llmodel_mpt_create();
+                    Debug.Log("MPT model created!");
+                    break;
+                case LlmModelType.LLAMA:
+                    Debug.Log("Trying to init Llama model...");
+                    model = LlmNative.llmodel_llama_create();
+                    Debug.Log("Llama model created!");
+                    break;
+                default:
+                    throw new Exception("Unknown model architecture!");
             }
 
             var wrapper = new LlmWrapper(type, model);
