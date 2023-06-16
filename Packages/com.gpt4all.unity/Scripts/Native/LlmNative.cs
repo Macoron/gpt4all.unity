@@ -49,7 +49,7 @@ namespace Gpt4All.Native
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         private const string LibraryName = "__Internal";
 #else
-        private const string LibraryName = "libllmodel";
+        private const string LibraryName = "llmodel";
 #endif
     
         [DllImport(LibraryName)]

@@ -3,7 +3,7 @@
 gpt4all_path="$1"
 targets=${2:-all}
 unity_project="$PWD"
-build_path="$gpt4all_path/llmodel/build"
+build_path="$gpt4all_path/build"
 
 clean_build(){
   rm -rf "$build_path"
@@ -15,13 +15,13 @@ build_mac() {
   clean_build
   echo "Starting building for Mac..."
 
-  cmake -DBUILD_UNIVERSAL=ON ../
+  cmake -DBUILD_UNIVERSAL=ON -DCMAKE_BUILD_TYPE=Release ../
   make
 
   echo "Build for Mac complete!"
 
   artifact_path="$build_path/libllmodel.dylib"
-  target_path="$unity_project/Packages/com.gpt4all.unity/Plugins/MacOS/libllmodel.dylib"
+  target_path="$unity_project/Packages/com.gpt4all.unity/Plugins/MacOS/llmodel.dylib"
   cp "$artifact_path" "$target_path"
 
   echo "Build files copied to $target_path"
