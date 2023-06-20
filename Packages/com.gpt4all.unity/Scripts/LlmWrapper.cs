@@ -1,17 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using AOT;
 using Gpt4All.Native;
+using Gpt4All.Utils;
 using Debug = UnityEngine.Debug;
 
 namespace Gpt4All
 {
     public delegate void LlmPromptDelegate(int tokenId);
 
-    public delegate void LlmResponseDelegate(int tokenId, string response);
+    public delegate void LlmResponseDelegate(int tokenId, byte[] response);
+    
+    public delegate void LlmResponseUpdatedDelegate(string response);
 
     public delegate void LlmRecalculateDelegate(bool isRecalculating);
 
@@ -30,11 +34,12 @@ namespace Gpt4All
         private static LlmWrapper _instance;
         private IntPtr _model;
         private readonly LlmModelType _type;
-        private readonly StringBuilder _builder = new StringBuilder();
+        private readonly List<byte> _buffer = new List<byte> ();
         private readonly object _lock = new object();
 
         public event LlmPromptDelegate OnPrompt;
         public event LlmResponseDelegate OnResponse;
+        public event LlmResponseUpdatedDelegate OnResponseUpdated;
         public event LlmRecalculateDelegate OnRecalculate;
 
         private LlmWrapper(LlmModelType type, IntPtr model)
@@ -74,7 +79,7 @@ namespace Gpt4All
         {
             lock (_lock)
             {
-                _builder.Clear();
+                _buffer.Clear();
                 Debug.Log("Inference LLM on input data...");
                 var sw = new Stopwatch();
                 sw.Start();
@@ -90,7 +95,9 @@ namespace Gpt4All
                 context.Native = ctx;
                 Debug.Log($"Token size: {(int)ctx.tokens_size}");
                 Debug.Log($"LLM inference finished, total time: {sw.ElapsedMilliseconds} ms.");
-                return _builder.ToString();
+                
+                var fullResponse = Encoding.UTF8.GetString(_buffer.ToArray());
+                return fullResponse;
             }
         }
 
@@ -114,15 +121,22 @@ namespace Gpt4All
         }
 
         [MonoPInvokeCallback(typeof(llmodel_response_callback))]
-        private static bool ResponseCallbackStatic(int tokenId, string response)
+        private static bool ResponseCallbackStatic(int tokenId, IntPtr response)
         {
             return _instance.ResponseCallback(tokenId, response);
         }
 
-        private bool ResponseCallback(int tokenId, string response)
+        private bool ResponseCallback(int tokenId, IntPtr response)
         {
-            OnResponse?.Invoke(tokenId, response);
-            _builder.Append(response);
+            // invoke raw byte buffer
+            var tokenBuffer = TextUtils.BytesFromNativeUtf8(response);
+            OnResponse?.Invoke(tokenId, tokenBuffer);
+            
+            // append it to full response
+            _buffer.AddRange(tokenBuffer);
+            var fullResponse = Encoding.UTF8.GetString(_buffer.ToArray());
+            OnResponseUpdated?.Invoke(fullResponse);
+            
             return true;
         }
 
