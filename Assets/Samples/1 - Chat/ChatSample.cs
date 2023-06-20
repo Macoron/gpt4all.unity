@@ -14,11 +14,13 @@ namespace Gpt4All.Samples
         public ScrollRect scroll;
         public Button submit;
 
+        private string _previousText;
+
         private void Awake()
         {
             input.onEndEdit.AddListener(OnSubmit);
             submit.onClick.AddListener(OnSubmitPressed);
-            manager.OnResponse += OnResponseHandler;
+            manager.OnResponseUpdated += OnResponseHandler;
         }
     
         private void OnSubmit(string prompt)
@@ -40,14 +42,16 @@ namespace Gpt4All.Samples
 
             input.text = "";
             output.text += $"<b>User:</b> {prompt}\n<b>Answer</b>: ";
+            _previousText = output.text;
+            
             await manager.Prompt(prompt);
             output.text += "\n";
             ScrollDown();
         }
     
-        private void OnResponseHandler(int tokenId, string response)
+        private void OnResponseHandler(string response)
         {
-            output.text += response;
+            output.text = _previousText + response;
             ScrollDown();
         }
 

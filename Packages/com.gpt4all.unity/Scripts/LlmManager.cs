@@ -67,6 +67,7 @@ namespace Gpt4All
 
         public event LlmPromptDelegate OnPrompt;
         public event LlmResponseDelegate OnResponse;
+        public event LlmResponseUpdatedDelegate OnResponseUpdated;
         public event LlmRecalculateDelegate OnRecalculate;
 
         private LlmWrapper _llm;
@@ -112,6 +113,7 @@ namespace Gpt4All
                 _ctx = LlmPromptContext.GetDefaultContext();
                 _llm.OnPrompt += OnPromptHandler;
                 _llm.OnResponse += OnResponseHandler;
+                _llm.OnResponseUpdated += OnResponseUpdatedHandler;
                 _llm.OnRecalculate += OnRecalculateHandler;
             }
             catch (Exception e)
@@ -168,9 +170,14 @@ namespace Gpt4All
             _dispatcher.Execute(() => OnPrompt?.Invoke(tokenId));
         }
 
-        private void OnResponseHandler(int tokenId, string response)
+        private void OnResponseHandler(int tokenId, byte[] response)
         {
             _dispatcher.Execute(() => OnResponse?.Invoke(tokenId, response));
+        }
+        
+        private void OnResponseUpdatedHandler(string response)
+        {
+            _dispatcher.Execute(() => OnResponseUpdated?.Invoke(response));
         }
 
         private void OnRecalculateHandler(bool isRecalculating)

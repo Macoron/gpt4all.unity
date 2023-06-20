@@ -36,7 +36,7 @@ namespace Gpt4All.Native
     public delegate bool llmodel_prompt_callback(int token_id);
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    public delegate bool llmodel_response_callback(int token_id, string response);
+    public delegate bool llmodel_response_callback(int token_id, IntPtr response);
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     public delegate bool llmodel_recalculate_callback(bool is_recalculating);
