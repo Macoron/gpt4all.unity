@@ -3,7 +3,7 @@
 gpt4all_path="$1"
 targets=${2:-all}
 unity_project="$PWD"
-build_path="$gpt4all_path/build"
+build_path="$gpt4all_path/gpt4all-backend/build"
 
 clean_build(){
   rm -rf "$build_path"
@@ -20,9 +20,8 @@ build_mac() {
 
   echo "Build for Mac complete!"
 
-  artifact_path="$build_path/libllmodel.dylib"
-  target_path="$unity_project/Packages/com.gpt4all.unity/Plugins/MacOS/llmodel.dylib"
-  cp "$artifact_path" "$target_path"
+  cp "$build_path/libllmodel.dylib" "$unity_project/Packages/com.gpt4all.unity/Plugins/MacOS/llmodel.dylib"
+  cp "$build_path/llama.cpp/libllama.dylib" "$unity_project/Packages/com.gpt4all.unity/Plugins/MacOS/libllama.dylib"
 
   echo "Build files copied to $target_path"
 }
