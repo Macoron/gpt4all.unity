@@ -139,7 +139,7 @@ namespace Gpt4All
         {
             if (!IsLoaded && !IsLoading)
             {
-                Debug.LogError("Whisper model isn't loaded! Init Whisper model first!");
+                Debug.LogError("LLM model isn't loaded! Init LLM model first!");
                 return false;
             }
 
