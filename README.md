@@ -40,8 +40,10 @@ You would need to download model weights in order to use this library. You can f
 After downloading model, place it `StreamingAssets/Gpt4All` folder and update path in `LlmManager` component.
 
 Here is models that I've tested in Unity:
-- mpt-7b-chat
-- gpt4all-j-v1.3-groovy.bin
+- [mpt-7b-chat](https://huggingface.co/macoron/ggml-mpt-7b-chat) [license: cc-by-nc-sa-4.0]
+- [mpt-7b-instruct](https://huggingface.co/macoron/ggml-mpt-7b-instruct) [license: cc-by-sa-3.0]
+- [mpt-7b-base](https://huggingface.co/macoron/ggml-mpt-7b-base) [license: apache-2.0]
+- [gpt4all-j-v1.3-groovy](https://huggingface.co/macoron/ggml-gpt4all-j-v1.3-groovy) [license: apache-2.0]
 - gpt4all-l13b-snoozy
 
 ## Compiling C++ libraries from source
