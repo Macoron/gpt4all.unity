@@ -3,6 +3,8 @@
 
 This is Unity3d bindings for the [gpt4all](https://github.com/nomic-ai/gpt4all). It provides high-performance inference of large language models (LLM) running on your local machine.
 
+> This bindings use outdated version of gpt4all. They don't support latest models architectures and quantization. Here is a [list of models](#downloading-model-weights) that I have tested. For more information [check this issue](https://github.com/Macoron/gpt4all.unity/issues/11).
+
 **Main features:**
 - Chat-based LLM that can be used for NPCs and virtual assistants
 - Models of different sizes for commercial and non-commercial use
